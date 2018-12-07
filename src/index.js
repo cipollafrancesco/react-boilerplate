@@ -1,15 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-// STYLES
+import * as serviceWorker from './serviceWorker'
 import './styles/index.css'
 import 'bootstrap/dist/css/bootstrap.css'
-// SERVICE WORKERS
-import * as serviceWorker from './serviceWorker'
+import {Provider} from 'react-redux'
+import {combineReducers} from 'redux'
+import {configureStore} from './core/redux.config'
 
-ReactDOM.render(<App/>, document.getElementById('root'))
+/* APP REDUCERS */
+const reducers = combineReducers({})
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister()
+
+ReactDOM.render(
+    <Provider store={configureStore(reducers)}>
+        <App/>
+    </Provider>,
+    document.getElementById('root')
+)
+
+// Service Workers
+serviceWorker.register()
